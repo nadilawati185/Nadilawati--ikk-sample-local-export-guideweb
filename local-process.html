@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKK - Local Sample Process Flow</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gaya dasar untuk konten detail */
+        .page-content {
+            padding: 40px 20px;
+            max-width: 95%; /* Lebih lebar untuk menampung konten */
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.05); /* Latar belakang lebih gelap */
+            border-radius: 20px;
+            text-align: left;
+        }
+        .page-content h2 {
+            font-size: 2.5em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .page-content h3 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            color: #a0d4ff; /* Warna biru muda untuk judul langkah */
+        }
+        .flow-step {
+            counter-increment: step-counter;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            position: relative;
+        }
+        .flow-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: 10px;
+            left: -20px;
+            background: #ffc107; /* Warna kuning untuk nomor langkah */
+            color: #2a2066;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .flow-step:nth-child(odd) {
+             /* Warna latar belakang bergantian (opsional) */
+             background: rgba(255, 255, 255, 0.1);
+        }
+        .back-home {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .back-home a {
+            color: #a0d4ff;
+            text-decoration: none;
+        }
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .info-box p, .info-box ul {
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+        ul {
+            list-style: disc inside;
+            margin-left: 15px;
+        }
+        ol {
+            list-style: decimal inside;
+            margin-left: 15px;
+        }
+        /* Dashboard Button Style (Reusing .btn-process) */
+        .dashboard-btn {
+            display: inline-block;
+            background: #28a745; /* Warna hijau untuk dashboard */
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px auto;
+            transition: background 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .dashboard-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="hero">
+            <div class="page-content">
+                
+                <div class="back-home">
+                    <a href="index.html">← Back to Home 🏠</a>
+                </div>
+
+                <h2>Local Sample Process Flow</h2>
+                <p style="text-align: center; margin-bottom: 20px;">Step-by-step workflow for local sample requests</p>
+                
+                <div style="text-align: center;">
+                    <a href="#" class="dashboard-btn">📊 Dashboard Order Intake (Akses Dashboard)</a>
+                </div>
+
+                <div class="flow-step">
+                    <h3>1. Receive Email from Customer to IKK Customer Service</h3>
+                    <p>Customer service receives initial sample request email from customer with complete details.</p>
+                    
+                    <h4>Email Reception:</h4>
+                    <ul>
+                        <li>Customer sends email request to IKK Customer Service.</li>
+                        <li>Review detailed information about required sample items.</li>
+                    </ul>
+
+                    <h4>Product Specifications:</h4>
+                    <div class="info-box">
+                        <ul>
+                            <li>Sample description and product type</li>
+                            <li>**GSM** (Gram per Square Meter) specification</li>
+                            <li>Grade/quality requirement</li>
+                            <li>Quantity needed (number of pieces, kg, rolls, sheets)</li>
+                            <li>Size/Format (A4 or custom dimensions)</li>
+                            <li>**REMARKS** (special requirements, testing purpose, deadlines)</li>
+                        </ul>
+                    </div>
+
+                    <h4>Recipient Information:</h4>
+                    <ul>
+                        <li>**ATTN** - Name of person receiving sample</li>
+                        <li>Complete delivery address (street, city, postal code)</li>
+                        <li>Contact email and phone number</li>
+                    </ul>
+
+                    <p>Verify Information: Confirm all required details are complete. Acknowledge Receipt: Send confirmation email to customer.</p>
+                    
+                    <h4 style="margin-top: 20px;">📧 Customer Email Checklist:</h4>
+                    <div class="info-box">
+                         <ul style="columns: 2;">
+                            <li>✓ Sample description/product type</li>
+                            <li>✓ GSM specification</li>
+                            <li>✓ Grade/quality requirement</li>
+                            <li>✓ Quantity needed</li>
+                            <li>✓ Size (A4 or custom)</li>
+                            <li>✓ REMARKS/special requirements</li>
+                            <li>✓ Recipient name (ATTN)</li>
+                            <li>✓ Complete delivery address</li>
+                            <li>✓ Contact email & phone number</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>2. Create SRF Form (Sample Request Form)</h3>
+                    <p>Fill out the complete SRF form with all required information from customer email.</p>
+                    
+                    <h4>SRF Field Details:</h4>
+                    <ul>
+                        <li>**SRF Date:** Enter the date of sample request creation (DD/MM/YYYY)</li>
+                        <li>**Prepared By:** Enter the name of person creating the request</li>
+                        <li>**Sample Description:** Provide detailed description of the sample product</li>
+                        <li>**GSM:** Specify the paper/material weight</li>
+                        <li>**Size/Format:** Enter dimensions (e.g., A4, custom size in cm)</li>
+                        <li>**Remarks:** Add any special requirements or specifications</li>
+                        <li>**Notes:** Include additional information if needed (quality notes, handling instructions)</li>
+                    </ul>
+
+                    <h4>📋 Recipient Details Section:</h4>
+                    <ul>
+                        <li>**ATTN (Attention):** Name of the person receiving the sample</li>
+                        <li>**Recipient Address:** Complete delivery address with postal code</li>
+                        <li>**Email Address:** Contact email for delivery notifications</li>
+                        <li>**Phone Number:** Contact number for delivery coordination</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h3>3. Review and Verify SRF Information</h3>
+                    <p>Double-check all entered information for accuracy:</p>
+                    <ul>
+                        <li>Verify all customer contact details are **correct**.</li>
+                        <li>Confirm sample specifications (**GSM**, size, description).</li>
+                        <li>Ensure recipient address is complete and **accurate**.</li>
+                        <li>Check email and phone number format.</li>
+                        <li>Review all remarks and notes for **clarity**.</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h3>4. Signature Collection</h3>
+                    <p>Obtain necessary approvals and signatures from key stakeholders.</p>
+                    <ol>
+                        <li>Submit form to **department head** for approval.</li>
+                        <li>Collect signature from **quality control manager**.</li>
+                        <li>Get final approval from **operations director**.</li>
+                        <li>Ensure all signatures are properly documented with dates.</li>
+                    </ol>
+                </div>
+
+                <div class="flow-step">
+                    <h3>5. Scan and Send to QC Team for Production</h3>
+                    <p>Forward the completed SRF to Quality Control team to produce the sample.</p>
+                    <ul>
+                        <li>**Scan Document:** Scan the completed SRF form with all signatures in high resolution.</li>
+                        <li>**Save as PDF:** Save with clear filename: `SRF_[Date]_[CustomerName].pdf`.</li>
+                        <li>**Email to QC:** Send via email to QC team distribution list.</li>
+                        <li>**Include Timeline:** Specify sample preparation timeline in email body.</li>
+                        <li>**CC Stakeholders:** Copy relevant team members for transparency.</li>
+                        <li>**Request Production:** QC team will produce the physical sample based on SRF specifications.</li>
+                    </ul>
+                    <p style="font-style: italic;">Wait for QC to complete sample production before next step.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>6. QC Sample Production Complete</h3>
+                    <p>QC team produces the sample and prepares it for shipment.</p>
+                    <ul>
+                        <li>**Sample Manufacturing:** QC produces sample according to SRF specifications.</li>
+                        <li>**Quality Check:** QC verifies sample meets GSM, size, and quality requirements.</li>
+                        <li>**Sample Packaging:** QC packages the sample appropriately (**A4 format** if specified).</li>
+                        <li>**Production Complete:** QC confirms sample is ready for shipment.</li>
+                    </ul>
+                    <p style="font-style: italic;">Wait for production completion notification from QC team.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>7. Request Information from General Affairs (GA)</h3>
+                    <p>After sample production is complete, get shipment details from GA team.</p>
+                    <ul>
+                        <li>Contact GA Team: Notify GA that sample is ready for shipment.</li>
+                        <li>Provide Sample Details: Share sample specifications and packaging info from QC.</li>
+                        <li>Request Delivery Info: Get estimated delivery timeline.</li>
+                        <li>Confirm Recipient: Verify ATTN name and complete recipient address with GA.</li>
+                        <li>Delivery Method: Confirm preferred courier service (local courier, post, etc.).</li>
+                        <li>Packaging Specs: Confirm A4 packaging or special packaging requirements.</li>
+                    </ul>
+                    <p style="font-style: italic;">Wait for GA confirmation before final coordination.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>8. WhatsApp Notification to GA</h3>
+                    <p>Send immediate notification via **WhatsApp** for urgent coordination.</p>
+                    <ul>
+                        <li>Notify GA Team: Send WhatsApp message to GA coordinator.</li>
+                        <li>Sample Ready Alert: Confirm sample is ready for pickup from QC.</li>
+                        <li>Key Details: Share Customer name, ATTN, Address, GSM, Size, Quantity.</li>
+                        <li>Urgent Requirements: Mention any deadlines or special handling.</li>
+                        <li>Confirm Pickup: Request pickup time from QC location.</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h3>9. Final GA Email Coordination</h3>
+                    <p>Send **formal email** to GA with complete shipment instructions.</p>
+                    <ul>
+                        <li>ATTN & Address: Include complete recipient name and delivery address.</li>
+                        <li>Contact Info: Provide recipient email and phone number.</li>
+                        <li>Sample Details: Specify GSM, size, quantity, packaging type.</li>
+                        <li>Delivery Timeline: Confirm expected delivery date.</li>
+                        <li>Attach Documents: Include copy of **approved SRF form** and QC confirmation.</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h3>10. Track Shipment & Confirm Delivery</h3>
+                    <p>Monitor shipment and ensure successful delivery to customer within maximum **3-4 days**.</p>
+                    <ul>
+                        <li>**Tracking Number:** Obtain tracking/receipt number from GA.</li>
+                        <li>**Notify Customer:** Send tracking information to customer via email.</li>
+                        <li>**Delivery Timeline:** Maximum pengiriman sample local **3-4 hari paling lama**.</li>
+                        <li>**Monitor Status:** Track shipment progress daily until delivery.</li>
+                        <li>**Follow Up:** If delivery exceeds 4 days, coordinate immediately with GA.</li>
+                        <li>**Delivery Confirmation:** Follow up with customer to confirm sample received.</li>
+                        <li>**Update Records:** Document delivery completion in system.</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 20px;">⏱️ Local Sample Delivery Timeline:</h4>
+                    <div class="info-box" style="background: rgba(40, 167, 69, 0.3);">
+                        <p>Maximum Delivery Time: **3-4 Days**</p>
+                        <ul>
+                            <li>Day 1-2: Sample picked up by courier and in transit</li>
+                            <li>Day 3-4: Expected delivery to customer</li>
+                            <li>If delayed beyond Day 4: **Escalate to GA immediately**</li>
+                        </ul>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">📌 Local Sample Checklist (Updated Flow)</h4>
+                    <div class="info-box">
+                        <ul style="columns: 2;">
+                            <li>✓ Customer Email Received</li>
+                            <li>✓ SRF Form Complete</li>
+                            <li>✓ Recipient Details Complete</li>
+                            <li>✓ A4 Format Confirmed</li>
+                            <li>✓ All Signatures Collected</li>
+                            <li>✓ Scanned Copy Saved (PDF)</li>
+                            <li>✓ QC Team Notified</li>
+                            <li>✓ QC Production Complete</li>
+                            <li>✓ GA Info Requested</li>
+                            <li>✓ WhatsApp to GA Sent</li>
+                            <li>✓ GA Email Coordination Sent</li>
+                            <li>✓ Tracking Number Obtained</li>
+                            <li>✓ Customer Notified (Tracking Info)</li>
+                            <li>✓ Delivery Timeline Confirmed (Max 3-4 Days)</li>
+                            <li>✓ Delivery Confirmed by Customer</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

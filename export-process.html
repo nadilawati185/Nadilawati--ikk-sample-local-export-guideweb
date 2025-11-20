@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKK - Export Sample Process Flow</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Menggunakan kembali dan menyesuaikan gaya dari local-process.html */
+        .page-content {
+            padding: 40px 20px;
+            max-width: 95%;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            text-align: left;
+        }
+        .page-content h2 {
+            font-size: 2.5em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .page-content h3 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            color: #a0d4ff;
+        }
+        .flow-step {
+            counter-increment: step-counter;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            position: relative;
+        }
+        .flow-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: 10px;
+            left: -20px;
+            background: #ffc107;
+            color: #2a2066;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .flow-step:nth-child(odd) {
+             background: rgba(255, 255, 255, 0.1);
+        }
+        .back-home {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .back-home a {
+            color: #a0d4ff;
+            text-decoration: none;
+        }
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+        .info-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        ul {
+            list-style: disc inside;
+            margin-left: 15px;
+        }
+        ol {
+            list-style: decimal inside;
+            margin-left: 15px;
+        }
+        
+        .warning-box {
+            background: #ffdbdb;
+            color: #721c24;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .checklist-grid {
+            columns: 2;
+            list-style: none;
+            padding: 0;
+        }
+        .checklist-grid li {
+            margin-bottom: 5px;
+            break-inside: avoid;
+        }
+
+        /* GAYA CARD QUICK LINKS BARU (Sesuai Gambar) */
+        .action-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            padding: 10px;
+        }
+        .action-card {
+            flex: 1 1 200px; /* Fleksibel, dengan lebar dasar 200px */
+            display: block;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            height: auto; /* Disesuaikan dengan konten */
+        }
+        .action-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .action-card .emoji {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .action-card .title {
+            font-size: 1.1em;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+        .action-card .description {
+            font-size: 0.8em;
+            color: #ccc;
+        }
+
+        /* Kalkulator Styling */
+        .calculator-section {
+            padding: 40px 20px; 
+            max-width: 900px; 
+            margin: 40px auto; 
+            color: white; 
+            background: rgba(255, 255, 255, 0.05); /* Latar belakang semi-transparan */
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+        .calculator-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 kolom untuk input */
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .calculator-section label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        .calculator-section input[type="number"], .calculator-section select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15); /* Input semi-transparan */
+            color: white;
+            font-size: 1em;
+        }
+        /* Menghilangkan panah spinner pada input number */
+        .calculator-section input[type="number"]::-webkit-outer-spin-button,
+        .calculator-section input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .calculator-section input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* GAYA CARD HASIL */
+        .result-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap; 
+        }
+        .result-card {
+            flex: 1;
+            min-width: 180px;
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 15px;
+            padding: 20px 10px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .result-card .label {
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .result-card .value {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+        /* Penyesuaian responsif */
+        @media (max-width: 600px) {
+            .calculator-inputs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .result-cards {
+                flex-direction: column;
+            }
+            .result-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="hero">
+            <div class="page-content">
+                
+                <div class="back-home">
+                    <a href="index.html">← Back to Home 🌍</a>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 30px;">
+                     <span class="emoji" style="font-size: 4em; display: block;">🌎</span>
+                </div>
+                
+                <h2>Export Sample Process Flow</h2>
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 10px;">Complete 17-step guide for international sample shipments (samples > 1 KG)</p>
+                
+                <div class="action-cards-container">
+                    <a href="https://gitssc-my.sharepoint.com/:x:/r/personal/nadilawati_k_nurjanah_app_co_id/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7B758ade88-7002-4fcd-87fc-e2d60a519fc2%7D" target="_blank" class="action-card">
+                        <span class="emoji">📊</span>
+                        <div class="title">Dashboard Order Intake</div>
+                        <div class="description">Access the sample IKK local & export dashboard</div>
+                    </a>
+                    <a href="http://idikkvpweb01.app.com/eSample/Login?ReturnUrl=%2feSample" target="_blank" class="action-card">
+                        <span class="emoji">🔗</span>
+                        <div class="title">e-Sample System</div>
+                        <div class="description">Access the e-Sample IKK system</div>
+                    </a>
+                    <a href="https://gitssc-my.sharepoint.com/:x:/g/personal/titin_tutini_app_co_id/EfNOun5xCtBAn8oRxQOIdnQB5MVm5oOpxi-oZoO18ok7dQ" target="_blank" class="action-card">
+                        <span class="emoji">📝</span>
+                        <div class="title">HS Code Material Class</div>
+                        <div class="description">View HS Code classification reference</div>
+                    </a>
+                    <a href="https://gitssc-my.sharepoint.com/:x:/r/personal/anis_septianingsih_app_co_id/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Ba8f76c40-1a3f-4100-9271-997c325b79cd%7D" target="_blank" class="action-card">
+                        <span class="emoji">🧮</span>
+                        <div class="title">Calculation Guide</div>
+                        <div class="description">Access calculation formulas and helpers</div>
+                    </a>
+                </div>
+
+                <div class="warning-box">
+                    ⚠️ IMPORTANT: Sample Weight Classification<br>
+                    Export samples **ABOVE 1 KG MUST** use the e-Sample Web System
+                </div>
+
+                <div class="flow-step">
+                    <h3>1. Receive Email from Customer to IKK Customer Service</h3>
+                    <p>Customer service receives initial sample request email from customer with complete details.</p>
+                    
+                    <h4>Product Specifications:</h4>
+                    <div class="info-box">
+                        <ul>
+                            <li>Sample description and product type</li>
+                            <li>**GSM** (Gram per Square Meter) specification</li>
+                            <li>Grade/quality requirement</li>
+                            <li>Quantity needed (number of pieces, kg, rolls, sheets)</li>
+                            <li>Size/Format (A4 or custom dimensions)</li>
+                            <li>**REMARKS** (special requirements, testing purpose, deadlines)</li>
+                        </ul>
+                    </div>
+                    <h4>Recipient Information:</h4>
+                    <ul>
+                        <li>**ATTN** - Name of person receiving sample</li>
+                        <li>Complete delivery address (street, city, postal code, **country**)</li>
+                        <li>Contact email and phone number</li>
+                    </ul>
+                    <p>Verify Information: Confirm all required details are complete. Acknowledge Receipt: Send confirmation email to customer.</p>
+                    
+                    <h4 style="margin-top: 20px;">📧 Customer Email Checklist:</h4>
+                    <div class="info-box checklist-grid">
+                        <li>✓ Sample description/product type</li>
+                        <li>✓ GSM specification</li>
+                        <li>✓ Grade/quality requirement</li>
+                        <li>✓ Quantity needed</li>
+                        <li>✓ Size (A4 or custom)</li>
+                        <li>✓ REMARKS/special requirements</li>
+                        <li>✓ Recipient name (ATTN)</li>
+                        <li>✓ Complete delivery address</li>
+                        <li>✓ Contact email & phone number</li>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>2. Create SRF Form (Sample Request Form)</h3>
+                    <p>Fill out the complete SRF form with all required information from customer email.</p>
+                    
+                    <h4>SRF Field Details:</h4>
+                    <ul>
+                        <li>**SRF Date:** Enter the date of sample request creation (DD/MM/YYYY)</li>
+                        <li>**Prepared By:** Enter the name of person creating the request</li>
+                        <li>**Sample Description:** Provide detailed description of the sample product</li>
+                        <li>**GSM:** Specify the paper/material weight</li>
+                        <li>**Size/Format:** Enter dimensions (e.g., A4, custom size in cm)</li>
+                        <li>**Remarks:** Add any special requirements or specifications</li>
+                    </ul>
+                    <h4>📋 Recipient Details Section:</h4>
+                    <ul>
+                        <li>**Recipient Address:** Complete delivery address with postal code and **country**</li>
+                        <li>**Phone Number:** Contact number with **country code**</li>
+                    </ul>
+                </div>
+
+                <div class="flow-step">
+                    <h3>3. Review and Verify SRF Information</h3>
+                    <p>Double-check all entered information for accuracy. Ensure recipient address is complete with **country code**.</p>
+                </div>
+                <div class="flow-step">
+                    <h3>4. Signature Collection</h3>
+                    <p>Obtain necessary approvals and signatures from department head, QC manager, and operations director.</p>
+                </div>
+                <div class="flow-step">
+                    <h3>5. Scan and Send to QC Team for Production</h3>
+                    <p>Scan completed SRF form. **Save as PDF: SRF_Export_[Date]_[CustomerName].pdf**.</p>
+                    <p>Email to QC: Send with specified sample preparation timeline.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>6. QC Sample Production Complete</h3>
+                    <p>QC team produces the sample and prepares it for international shipment.</p>
+                    <ul>
+                        <li>**Export Packaging:** QC packages sample appropriately for international shipping.</li>
+                        <li>Production Complete: QC confirms sample is ready for export shipment.</li>
+                    </ul>
+                    <p style="font-style: italic;">Wait for production completion notification from QC team.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>7. Request Information from General Affairs (GA)</h3>
+                    <p>Obtain essential measurements and shipping costs from GA team after sample production.</p>
+                    <h4>Information Checklist from GA:</h4>
+                    <div class="info-box checklist-grid">
+                        <li>✓ Net Weight (kg)</li>
+                        <li>✓ Gross Weight (kg)</li>
+                        <li>✓ Length / Panjang (cm)</li>
+                        <li>✓ Width / Lebar (cm)</li>
+                        <li>✓ Height / Tinggi (cm)</li>
+                        <li>✓ Freight Cost estimate</li>
+                        <li>✓ Sample size specifications</li>
+                    </div>
+                    <p style="font-style: italic;">Wait for GA confirmation before proceeding to e-Sample system.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>8. Access e-Sample Web System & Click "NEW"</h3>
+                    <p>Log into e-Sample system and start new request. **Verify sample weight is above 1 KG** before proceeding.</p>
+                    <a href="http://idikkvpweb01.app.com/eSample/Login?ReturnUrl=%2feSample" target="_blank" class="btn-system" style="margin-top: 10px;">🔗 Direct System Access</a>
+                </div>
+
+                <div class="flow-step">
+                    <h3>9. Configure Trade Type & Export Settings</h3>
+                    <p>Set up the initial trade configuration:</p>
+                    <div class="info-box">
+                        <ul class="checklist-grid">
+                            <li>✓ **Trade Type:** SAMPLE</li>
+                            <li>✓ **Export Category:** Khusus Barang Contoh</li>
+                            <li>✓ **Payment Terms:** FOC (auto)</li>
+                            <li>✓ **Inco Terms:** DAP (Delivery at Place)</li>
+                            <li>✓ **Shipment By:** AIR</li>
+                            <li>✓ **Port of Loading:** Bandara Soekarno Hatta</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>10. Enter Country & Customer Destination Details</h3>
+                    <p>Fill in all destination country and customer address information:</p>
+                    <div class="info-box">
+                        <ul class="checklist-grid">
+                            <li>✓ **Country Sold To / Ship To / Destination:** Negara tujuan</li>
+                            <li>✓ **Product Type:** PAPER</li>
+                            <li>✓ **Sold To Party / Ship To Party:** Alamat lengkap customer</li>
+                            <li>✓ **Port of Discharge:** Port negara tujuan</li>
+                            <li>✓ **Place of Delivery:** Negara customer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>11. Fill Vessel, Schedule & Special Instructions</h3>
+                    <p>Complete shipping vessel information and timeline details:</p>
+                    <div class="info-box">
+                        <ul class="checklist-grid">
+                            <li>✓ **Vessel/Airplane:** KMILE</li>
+                            <li>✓ **Ship on Board:** 7 hari setelah hari ini</li>
+                            <li>✓ **Vessel Number:** 8k0801</li>
+                            <li>✓ **Special Instruction:** From SRF (copy remarks/notes)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>12. Calculate & Enter Shipping Mark (Freight, Invoice, FOB)</h3>
+                    <p>Masukkan hasil perhitungan Freight, Invoice, FOB ke kolom **Shipping Mark**:</p>
+                    <p style="font-weight: bold;">Format Shipping Mark: "Freight: \$XXX.XX | Invoice: \$XXX.XX | FOB: \$XXX.XX"</p>
+                    
+                    <h4 style="margin-top: 15px;">🧮 Calculation Formulas (IMPORTANT ORDER):</h4>
+                    <div class="info-box" style="background: rgba(220, 53, 69, 0.2);">
+                        <ol style="margin-left: 0;">
+                            <li>**FOB** = Net Weight (kg) $\times$ Harga Barang $\div 1000$</li>
+                            <li>**Invoice** = Freight $\div$ Dollar Rate (hari ini)</li>
+                            <li>**Freight** = Invoice - FOB</li>
+                        </ol>
+                    </div>
+                    <a href="https://gitssc-my.sharepoint.com/:x:/r/personal/anis_septianingsih_app_co_id/_layouts/15/Doc2.aspx?action=edit&sourcedoc=%7Ba8f76c40-1a3f-4100-9271-997c325b79cd%7D" target="_blank" class="btn-calculator">📊 Access Excel Calculation Sheet →</a>
+                </div>
+                
+                <div class="flow-step">
+                    <h3>13. Click "Add List" & Enter Product Details</h3>
+                    <p>Tambahkan item produk dan verifikasi perhitungan sistem:</p>
+                    <div class="info-box">
+                        <ul class="checklist-grid">
+                            <li>✓ **HS Code:** Dari material class database (<a href="https://gitssc-my.sharepoint.com/:x:/g/personal/titin_tutini_app_co_id/EfNOun5xCtBAn8oRxQOIdnQB5MVm5oOpxi-oZoO18ok7dQ" target="_blank" style="color: #ffc107;">Lihat Ref</a>)</li>
+                            <li>✓ **Net/Gross Weight:** Dari GA Remarks Info Form</li>
+                            <li>✓ **Unit Price:** Dari SC yang diproses</li>
+                            <li>✓ **Volume:** Panjang $\times$ Lebar $\times$ Tinggi $\div 1,000,000$</li>
+                            <li>✓ **Quantity UOM:** Box/Roll/Sheet/Pack</li>
+                            <li>Klik **CALCULATE** $\to$ **SAVE** $\to$ **POST e-Sample**</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <h3>14. Screenshot Invoice Number & Send to Document Team</h3>
+                    <p>Setelah **POST e-Sample**, **Number Invoice** akan muncul di pojok atas.</p>
+                    <ol>
+                        <li>Ambil **Screenshot** Number Invoice yang muncul.</li>
+                        <li>Kirim **by email** ke **Team Dokumen**.</li>
+                    </ol>
+                    <p>Dokumen yang akan diproses Tim Dokumen: FOB, V-Legal, Packing List, COA, Invoice Approved.</p>
+                </div>
+
+                <div class="flow-step">
+                    <h3>15. Send Reminder to GA for AWB Number</h3>
+                    <p>Kirim reminder by Outlook kepada pihak GA untuk meminta **AWB (Air Waybill) Number**.</p>
+                    <p style="font-style: italic;">Sertakan Invoice Number, Customer name, dan Destination Country.</p>
+                </div>
+                <div class="flow-step">
+                    <h3>16. Receive AWB/DHL Tracking Number from GA</h3>
+                    <p>Setelah itu mendapatkan informasi AWB Number atau DHL Tracking dari pihak GA. **Verify Information**.</p>
+                </div>
+                <div class="flow-step">
+                    <h3>17. Enter AWB Number into e-Sample System & Notify Customer</h3>
+                    <p>Login ke e-Sample, temukan sampel, dan berikan informasi AWB/DHL Tracking Number.</p>
+                    <p>Setelah itu, **Email Customer** dengan detail tracking link dan perkiraan waktu pengiriman.</p>
+                </div>
+
+                <h3 style="color: white; border-bottom: none; text-align: center; margin-top: 40px;">📌 Export Sample Checklist (Complete 17-Step Flow)</h3>
+                <div class="info-box checklist-grid" style="background: rgba(0, 123, 255, 0.2);">
+                    <li>✓ Step 1 - Customer Email</li>
+                    <li>✓ Step 2 - SRF Form</li>
+                    <li>✓ Step 3 - SRF Review</li>
+                    <li>✓ Step 4 - Signatures</li>
+                    <li>✓ Step 5 - Scan to QC</li>
+                    <li>✓ Step 6 - QC Production</li>
+                    <li>✓ Step 7 - GA Information (L×W×H, Weight, Freight)</li>
+                    <li>✓ Step 8 - e-Sample Login & NEW</li>
+                    <li>✓ Step 9 - Trade Config (SAMPLE, DAP, AIR)</li>
+                    <li>✓ Step 10 - Destination Details</li>
+                    <li>✓ Step 11 - Vessel Info (KMILE, today+7)</li>
+                    <li>✓ Step 12 - Shipping Mark (FOB, Invoice, Freight)</li>
+                    <li>✓ Step 13 - Add List (HS Code, Volume, Post)</li>
+                    <li>✓ Step 14 - Screenshot to Doc Team</li>
+                    <li>✓ Step 15 - GA Reminder (AWB Request)</li>
+                    <li>✓ Step 16 - AWB Received</li>
+                    <li>✓ Step 17 - Customer Notification</li>
+                </div>
+
+            </div>
+        </section>
+    
+        <section id="calculator-section" class="calculator-section">
+            <h3 style="color: white; border-bottom: none; text-align: center;">Quick Calculation Tool</h3>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">Enter values below to calculate FOB, Invoice, Freight, and Volume automatically</p>
+
+            <form id="export-calculator">
+                <div class="calculator-inputs">
+                    <div>
+                        <label for="netWeight">Net Weight (kg)</label>
+                        <input type="number" id="netWeight" step="0.01" value="0.00" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label for="pricePerKg">Price per kg</label>
+                        <input type="number" id="pricePerKg" step="0.01" value="0.00" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label for="freightCostRaw">Freight Cost</label>
+                        <input type="number" id="freightCostRaw" step="0.01" value="0.00" placeholder="0.00">
+                    </div>
+
+                    <div>
+                        <label for="usdRate">USD Rate</label>
+                        <input type="number" id="usdRate" step="0.0001" value="0.00" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label for="lengthCm">Length (cm)</label>
+                        <input type="number" id="lengthCm" step="0.1" value="0.00" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label for="widthCm">Width (cm)</label>
+                        <input type="number" id="widthCm" step="0.1" value="0.00" placeholder="0.00">
+                    </div>
+                    
+                    <div>
+                        <label for="heightCm">Height (cm)</label>
+                        <input type="number" id="heightCm" step="0.1" value="0.00" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label for="unitOfMeasure">Unit of Measure</label>
+                        <select id="unitOfMeasure">
+                            <option>Roll</option>
+                            <option>Sheet</option>
+                            <option>Pack</option>
+                            <option>Box</option>
+                        </select>
+                    </div>
+                    <div></div> 
+                </div>
+            </form>
+
+            <div class="result-cards">
+                <div class="result-card">
+                    <div class="label">FOB VALUE</div>
+                    <div class="value" id="fobValue">$0.00</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">INVOICE AMOUNT</div>
+                    <div class="value" id="invoiceAmount">$0.00</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">FREIGHT TOTAL</div>
+                    <div class="value" id="freightTotalCalculated">$0.00</div>
+                </div>
+                <div class="result-card">
+                    <div class="label">VOLUME (M³)</div>
+                    <div class="value" id="volumeM3">0.000000</div>
+                </div>
+            </div>
+        </section>
+        
+        <script src="script.js"></script>
+    </body>
+</html>
